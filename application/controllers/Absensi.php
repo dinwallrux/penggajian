@@ -49,9 +49,16 @@ class Absensi extends CI_Controller {
 		
 		$nip = $this->security->xss_clean($this->input->post('username'));
     	$result=$this->absensi_model->getuser($nip);
+    	$today=date("Y-m-d")." 07:30";
+    	if (time()>strtotime($today)){
+            $this->session->set_flashdata('message','Anda tidak bisa login');
+    		redirect ("absensi","refresh");
+    	    return;
+    	}
 		if ($result["code"]==0){
 		    $data=array(
 		        "nip"       =>  $nip,
+		        "tgl"   => date("Y-m-d"),
 		        "masuk"  =>  date("Y-m-d H:i:s"),
 		    );
     		

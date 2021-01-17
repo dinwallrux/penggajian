@@ -26,6 +26,7 @@ class Cuti extends CI_Controller {
 		echo json_encode($result);
 	}
 
+
 	public function AddData(){
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('awal', 'Awal Cuti', 'trim|required');
@@ -42,12 +43,34 @@ class Cuti extends CI_Controller {
 		$akhir = $this->security->xss_clean($this->input->post('akhir'));
 		$alasan = $this->security->xss_clean($this->input->post('alasan'));
 
+        $path=$_SERVER['DOCUMENT_ROOT'];
+        $config['upload_path'] = $path.'/assets/cuti/'; //path folder
+        $config['allowed_types'] = 'jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
+
+        $this->upload->initialize($config);
+        if(!empty($_FILES['bukti']['name'])){
+            if ($this->upload->do_upload('bukti')){
+                $gbr = $this->upload->data();
+                $ext = pathinfo($path.'assets/cuti/'.$gbr['file_name'], PATHINFO_EXTENSION);
+                rename($path.'assets/cuti/'.$gbr['file_name'],$path.'assets/cuti/'.$nip."-".$awal.".".$ext);
+
+                $imagename=$nip."-".$awal.".".$ext;
+            }
+                      
+        }else{
+            echo "disana";
+        }
+        
+       
+
 		$data=array(
 			"nip"	    =>	$nip,
 			"awal"		=>	$awal,
 			"akhir"	    =>	$akhir,
 			"alasan"	=>	$alasan,
 			"tanggal_aju"	=>	date("Y-m-d"),
+			"bukti"     => $imagename,
 		);
 
 		$result = $this->cuti_model->insertData($data);

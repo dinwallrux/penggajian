@@ -2,7 +2,7 @@
     if ($_SESSION["logged_in"]["role"]=="Admin"){
 ?>
 <div class="row">
-	<form id="form_input">
+	<form id="form_input" enctype='multipart/form-data'>
 		<div class="col-lg-12">
 			<div class="card-body">
 			  <div class="form-group row">
@@ -47,11 +47,17 @@
 				<div class="col-sm-7">
 				  <input type="text" class="form-control" id="lama" readonly>
 				</div>
-			  </div>			  
+			  </div>
 			  <div class="form-group row">
 				<label class="col-sm-5 col-form-label">Alasan</label>
 				<div class="col-sm-7">
 				  <input type="text" class="form-control" id="alasan" name="alasan" placeholder="alasan" maxlength="100">
+				</div>
+			  </div>
+              <div class="form-group row">
+				<label class="col-sm-5 col-form-label">Bukti</label>
+				<div class="col-sm-7">
+				  <input type="file" class="form-control" id="bukti" name="bukti">
 				</div>
 			  </div>
 			  <div class="form-group row">

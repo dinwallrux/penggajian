@@ -21,6 +21,12 @@
     				    <span id="periode"></span>
     				</div>
     			</div>
+                <div class="form-group row">
+    				<label class="col-sm-5 col-form-label">Total Cuti</label>
+    				<div class="col-sm-7">
+    				    <span id="cuti"></span>
+    				</div>
+    			</div>
     			<div class="form-group row">
     				<label class="col-sm-4 col-form-label">Rincian</label>
     				<div class="col-sm-4">
@@ -120,7 +126,7 @@
     				  &nbsp;
     				</div>
     				<div class="col-sm-4">
-    				  Total KJM
+    				  Total KJM <span id="lebihkjm"></span>
     				</div>
     				<div class="col-sm-1">
     				    Rp.
@@ -306,6 +312,8 @@ function detailgaji(nip){
                 anak=Number(0.02*gjpokok*isi["gaji"][0]["anak"])
             }
         }
+        
+        $("#cuti").html(isi["cuti"][0]["cuti"]+" Hari");
         $("#istri").html(istri.toLocaleString("id-ID"));
         $("#anak").html(anak.toLocaleString("id-ID"));                
         $("#makan").html(Number(hadir*isi["gaji"][0]["tunj_makan"]).toLocaleString("id-ID"));
@@ -314,6 +322,7 @@ function detailgaji(nip){
         $("#pendidikan").html(Number(0.1*gjpokok).toLocaleString("id-ID"));
         $("#piket").html(Number(isi["gaji"][0]["tunj_piket"]).toLocaleString("id-ID"));
         $("#kjm").html(Number(kjm*25000).toLocaleString("id-ID"));
+        $("#lebihkjm").html("("+Number(kjm)+" Jam )");
         $("#iuran").html("("+(Number(0.1*gjpokok).toLocaleString("id-ID"))+")");
         $("#bpjs").html("("+Number(isi["gaji"][0]["bpjs"]).toLocaleString("id-ID")+")");
         var gaji=Number(gjpokok)+istri+anak+Number(hadir*isi["gaji"][0]["tunj_makan"]);

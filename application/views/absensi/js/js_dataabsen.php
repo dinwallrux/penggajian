@@ -35,7 +35,7 @@ $(function(){
 					"searchable": false,
 					"orderable": false,
 					"mRender": function (data, type, full, meta){
-					    if (full.status=="0"){
+					    if ((full.status=="0") && (full.keluar!="0000-00-00 00:00:00")) {
 					        return "<a href='<?=base_url()?>absensi/validasi/"+full.nip+"/"+full.masuk+"'>Validasi</a>";
 					    }else{
 					        return "";

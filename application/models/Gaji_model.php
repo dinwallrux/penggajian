@@ -22,7 +22,11 @@ class Gaji_model extends CI_Model{
             $sql="SELECT nip,TIMESTAMPDIFF(DAY, awal, akhir) AS cuti FROM cuti WHERE status='1' AND MONTH(awal)='".$bulan."' AND YEAR(awal)='".$tahun."' GROUP BY nip";
         }
         $query=$this->db->query($sql);
-        return $query->result_array();
+        if ($query->num_rows()>0){
+            return $query->result_array();
+        }else{
+            return array(array("cuti"=>0));
+        }
     }
     
     public function getGaji($nip){

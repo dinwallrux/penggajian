@@ -4,6 +4,10 @@ $("#awal").on("blur",function(){
     var date2 = new Date($("#akhir").val());
     var Difference_In_Time = date2.getTime() - date1.getTime();     
     var days = Difference_In_Time / (1000 * 3600 * 24);
+    if (days>12){
+        alert("Lama cuti tidak dapat lebih dari 12 hari");
+        return;
+    }
     $("#lama").val(days);
 })
 
@@ -12,6 +16,10 @@ $("#akhir").on("blur",function(){
     var date2 = new Date($("#akhir").val());
     var Difference_In_Time = date2.getTime() - date1.getTime();     
     var days = Difference_In_Time / (1000 * 3600 * 24);
+    if (days>12){
+        alert("Lama cuti tidak dapat lebih dari 12 hari");
+        return;
+    }
     $("#lama").val(days);
 })
 
@@ -105,19 +113,26 @@ $('#table_data tbody').on( 'click', 'tr', function (e) {
 
 $("button[name=btnSimpan]").click(function (e) {
 	e.preventDefault();
-	var dataString = $("#form_input").serialize(); 	
+	var form = $('#form_input')[0];
+    var dataString = new FormData(form);
 	if ($(this).attr("id")=="btnSimpan")
 	{
+	    if ($("#lama").val()=="NaN"){
+	        alert("cek lama cuti");
+	        return;
+	    }
 		$.ajax({
 			type: "POST",
 			url: "<?php echo base_url()?>cuti/AddData",
 			data: dataString,
+            processData: false,
+            contentType: false,			
 			success: function(data)
 			{
 				console.log(data);
 				$("#pesan").show();
 				$("#pesan").html(data);
-				table.ajax.reload();
+				//table.ajax.reload();
 				$('#form_input')[0].reset();
 			}
 		});
