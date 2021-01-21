@@ -17,9 +17,9 @@ class Gaji_model extends CI_Model{
     
     public function getCuti($bulan,$tahun,$nip){
         if (!empty($nip)){
-            $sql="SELECT nip,TIMESTAMPDIFF(DAY, awal, akhir) AS cuti FROM cuti WHERE status='1' AND nip='".$nip."' AND MONTH(awal)='".$bulan."' AND YEAR(awal)='".$tahun."'  GROUP BY nip";
+            $sql="SELECT nip,sum(TIMESTAMPDIFF(DAY, awal, akhir)) AS cuti FROM cuti WHERE status='1' AND nip='".$nip."' AND MONTH(awal)='".$bulan."' AND YEAR(awal)='".$tahun."'  GROUP BY nip";
         }else{
-            $sql="SELECT nip,TIMESTAMPDIFF(DAY, awal, akhir) AS cuti FROM cuti WHERE status='1' AND MONTH(awal)='".$bulan."' AND YEAR(awal)='".$tahun."' GROUP BY nip";
+            $sql="SELECT nip,sum(TIMESTAMPDIFF(DAY, awal, akhir)) AS cuti FROM cuti WHERE status='1' AND MONTH(awal)='".$bulan."' AND YEAR(awal)='".$tahun."' GROUP BY nip";
         }
         $query=$this->db->query($sql);
         if ($query->num_rows()>0){

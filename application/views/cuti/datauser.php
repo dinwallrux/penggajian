@@ -81,6 +81,7 @@ echo $this->session->flashdata('sukses');
 echo '</div>';
 }
 ?>
+<div id="pesan"></div>
 <br>
 <div class="row">
 	<div class="col-lg-12">

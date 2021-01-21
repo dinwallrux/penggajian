@@ -131,7 +131,7 @@ $("button[name=btnSimpan]").click(function (e) {
 			{
 				console.log(data);
 				$("#pesan").show();
-				$("#pesan").html(data);
+				$("#pesan").html('<div class="alert alert-success">'+data+'</div>');
 				//table.ajax.reload();
 				$('#form_input')[0].reset();
 			}
